@@ -28,6 +28,8 @@ Julia入門
 
 ### Environment
 - OS: Ubuntu 18.04 LTS
+- Python: `3.7.3` (Miniconda `4.7.10`)
+    - Jupyter Notebook: `6.0.0`
 
 ---
 
@@ -104,3 +106,52 @@ $ julia -e 'for arg in ARGS; println(arg); end' hello world
 hello
 world
 ```
+
+---
+
+### Jupyter Notebook で使う
+
+#### Jupyter Notebook のインストール
+```bash
+# install python (Miniconda)
+$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+$ chmod +x ./Miniconda3-latest-Linux-x86_64.sh
+$ ./Miniconda3-latest-Linux-x86_64.sh
+
+# clean up
+$ rm ./Miniconda3-latest-Linux-x86_64.sh
+
+# confirm conda version
+$ conda -V
+conda 4.7.10
+
+# install jupyter notebook
+$ conda install jupyter
+```
+
+#### Jupyter Notebook 用のJuliaカーネルのインストール
+```bash
+# REPL起動
+$ julia
+
+julia> # `]` キーを叩いてパッケージモードに移行
+
+# IJuliaパッケージをインストール
+(v1.1) pkg> add IJulia
+
+# => インストールされたら ^D でR EPL終了
+
+# jupyter notebook のカーネルを確認
+$ jupyter kernelspec list
+Available kernels:
+  julia-1.1    /home/user/.local/share/jupyter/kernels/julia-1.1   # <- Juliaが使えるようになっている
+  python3      /home/user/miniconda3/share/jupyter/kernels/python3
+```
+
+#### Jupyter Notebook 起動
+```bash
+$ jupyter notebook
+# => localhost:8888 で Jupyter Notebook 起動
+```
+
+Juliaを使うには `New` > `Julia 1.1.1` を選択する
