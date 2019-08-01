@@ -52,3 +52,55 @@ $ source ~/.profile
 $ julia -v
 julia version 1.1.1
 ```
+
+***
+
+## Get Started
+
+### REPL
+`julia`コマンドで対話型セッション（REPL）を起動できる
+
+```bash
+$ julia
+
+# REPL
+julia> 1 + 2
+3
+
+# 最後に評価された式の結果は ans 変数に格納されている
+julia> ans
+3
+
+# 終了するには ^D (Ctrl + D) or `exit()`
+julia> quit()
+```
+
+---
+
+### コマンドライン
+Juliaのソースコードは `.jl`ファイルに記述される
+
+jlファイルを実行するには以下のコマンドを叩く
+
+```bash
+# execute script.jl
+$ julia script.jl
+
+# コマンドライン引数を指定することもできる
+## コマンドライン引数は グローバル変数 ARGS に渡される
+## スクリプト自体の名前は グローバル変数 PROGRAM_FILE に渡される
+$ julia script.jl arg1 arg2 ...
+```
+
+`-e`オプションでコマンドライン引数に渡された式をそのまま実行することも可能
+
+```bash
+# スクリプトの名前を出力
+$ julia -e 'println(PROGRAM_FILE)'
+## => スクリプトファイルを実行しているわけではないため、何も出力されない
+
+# コマンドライン引数を順に出力
+$ julia -e 'for arg in ARGS; println(arg); end' hello world
+hello
+world
+```
