@@ -27,7 +27,9 @@ Julia入門
 ## Setup
 
 ### Environment
-- OS: Ubuntu 18.04 LTS
+- OS:
+    - Ubuntu 18.04 LTS
+    - Windows 10
 - Python: `3.7.3` (Miniconda `4.7.10`)
     - Jupyter Notebook: `6.0.0`
 
@@ -36,6 +38,7 @@ Julia入門
 ### Installation
 [公式サイト](https://julialang.org/downloads/)の手順に従う
 
+#### Installation in Ubuntu
 ```bash
 # install in home directory
 $ cd ~
@@ -52,6 +55,21 @@ $ source ~/.profile
 
 # confirm version
 $ julia -v
+julia version 1.1.1
+```
+
+#### Installation in Windows
+管理者権限のPowerShellで以下を実行
+
+```powershell
+# chocolateyパッケージマネージャを入れていない場合は導入する
+> Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+# install julia
+> choco install -y julia
+
+# confirm version
+> julia -v
 julia version 1.1.1
 ```
 
