@@ -157,7 +157,7 @@ julia> # `]` キーを叩いてパッケージモードに移行
 # IJuliaパッケージをインストール
 (v1.1) pkg> add IJulia
 
-# => インストールされたら ^D でR EPL終了
+# => インストールされたら Ctrl + D でREPL終了
 
 # jupyter notebook のカーネルを確認
 $ jupyter kernelspec list
