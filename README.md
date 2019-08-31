@@ -46,12 +46,8 @@ $ cd ~
 # download julia-1.1.1
 $ wget -O - https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.1-linux-x86_64.tar.gz | tar zxvf -
 
-# export path
-$ echo '
-export PATH="$PATH:$HOME/julia-1.1.1/bin"
-' >> ~/.profile
-
-$ source ~/.profile
+# create symbolic link to /usr/local/bin/ => enable `julia` command
+$ sudo ln -s ~/julia-1.1.1/bin/julia /usr/local/bin/julia
 
 # confirm version
 $ julia -v
