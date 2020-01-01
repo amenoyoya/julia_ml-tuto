@@ -1,0 +1,17 @@
+version: '3'
+
+# Python 3.7 + JupyterNotebook + Julia 1.3 環境
+services:
+  jupyter:
+    build:
+      context: ./.jupyter # ./.jupyter/Dockerfile でビルド
+      args:
+        # Docker実行ユーザIDをビルド時に使用
+        UID: $UID
+    ports:
+      - 8888:8888 # http://localhost:8888/?token=julia でアクセス可能に
+    volumes:
+      # 作業ディレクトリ: ./ => docker://jupyter:/var/www/app/ にマウント
+      - ./:/var/www/app/
+    tty: true # コンテナがすぐに終了してしまうのを防ぎ、標準入出力を有効化
+    command: jupyter notebook --ip=0.0.0.0

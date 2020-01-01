@@ -35,8 +35,36 @@ Julia入門
 
 ---
 
+### Dockerによる環境構築
+
+#### Structure
+```bash
+./ # カレントディレクトリ = 作業ディレクトリ
+|_ .jupyter/ # jupyterコンテナビルド設定
+|   |_ Dockerfile # ビルド設定ファイル
+|   |_ jupyter_notebook_config.py # JupyterNotebook設定ファイル
+|
+|_ docker-compose.yml # jupyterコンテナ: python:3.7-slim-buster | http://localhost:8888
+                      ## JupyterNotebook + Julia 1.3.1 を同梱
+```
+
+#### Build
+```bash
+# jupyterコンテナ内の作業ユーザ（jupyter）とDocker実行ユーザのUIDを合わせてコンテナビルド
+$ export UID && docker-compose build
+
+## => PyTorch 等、比較的重めのパッケージをインストールするため、それなりに時間がかかる
+
+# コンテナをバックグラウンドで起動
+$ export UID && docker-compose up -d
+```
+
+コンテナが起動したら http://localhost:8888/?token=julia にアクセスすると JupyterNotebook が使える
+
+---
+
 ### Installation
-[公式サイト](https://julialang.org/downloads/)の手順に従う
+Dockerを使わない場合、[公式サイト](https://julialang.org/downloads/)の手順に従ってインストールする
 
 #### Installation in Ubuntu
 ```bash
