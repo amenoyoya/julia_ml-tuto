@@ -107,6 +107,9 @@ services:
       USER_ID: "${USER_ID:-0}"
       GROUP_ID: "${GROUP_ID:-0}"
 EOS
+    tee Project.toml << \EOS
+name = "JuliaProject"
+EOS
     ;;
 "app")
     if [ "$w" != "" ]; then
