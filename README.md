@@ -204,3 +204,9 @@ $ julia -e 'for arg in ARGS; println(arg); end' hello world
 hello
 world
 ```
+
+***
+
+## Tutorial
+
+See jupyter notebooks in [01_tutorial](./01_tutorial/).
