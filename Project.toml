@@ -1,4 +1,7 @@
 name = "JuliaTutorial"
 
 [deps]
+ImageMagick = "6218d12a-5da1-5696-b52f-db25d2ecc6d1"
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 Match = "7eb4fadd-790c-5f42-8a69-bfa0b872bfbf"
+Nettle = "49dea1ee-f6fa-5aa6-9a11-8816cee7d4b9"

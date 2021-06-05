@@ -1,6 +1,4 @@
-# julia-tuto
-
-Julia入門
+# Julia and Machine Learning tutorial
 
 ## What's Julia?
 
@@ -90,3 +88,9 @@ world
 ## Tutorial
 
 See jupyter notebooks in [01_tutorial](./01_tutorial/).
+
+***
+
+## 機械学習入門
+
+See jupyter notebooks in [02_machine-learning](./02_machine-learning/).
