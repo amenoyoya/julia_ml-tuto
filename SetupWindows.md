@@ -46,9 +46,10 @@ pkg> ^C
 # Conda.jl で JupyterLab インストール
 ## JupyterLab: Jupyter Notebook の後継
 ## * Jupyter Notebook: ノートブック形式でデータを可視化しながらプログラミング言語（主にPython）を実行できるIDE環境
-# $ conda install -y -c conda-forge jupyterlab
+## * 合わせて nodejs と ipywidgets もインストールしておくと Jupyter 上で Rich UI を使えるようになる
+# $ conda install -y -c conda-forge jupyterlab nodejs ipywidgets
 julia> using Conda
-julia> Conda.add("jupyterlab"; channel="conda-forge")
+julia> Conda.add(["jupyterlab", "nodejs", "ipywidgets"]; channel="conda-forge")
 
 # JupyterLab で Julia カーネルを使えるようにするため IJulia パッケージインストール
 julia> ]
@@ -60,6 +61,7 @@ julia> exit()
 
 # ユーザ環境変数 PATH に Anaconda in Julia の PATH 追加
 > [System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "User") + ";${ENV:USERPROFILE}\.julia\conda\3\Scripts;${ENV:USERPROFILE}\.julia\conda\3\Library\bin", "User")
+> [System.Environment]::SetEnvironmentVariable("JUPYTER_PATH", "${ENV:USERPROFILE}\.julia\conda\3\Scripts;${ENV:USERPROFILE}\.julia\conda\3\Library\bin", "User")
 
 # => 環境変数を反映するために一度 PowerShell 再起動
 
@@ -68,6 +70,9 @@ julia> exit()
 Available kernels:
   julia-1.6    C:\Users\<ユーザ名>\AppData\Roaming\jupyter\kernels\julia-1.6 # <= IJulia
   python3      C:\Users\<ユーザ名>\.julia\conda\3\share\jupyter\kernels\python3
+
+# JupyterLab ipywidgets 拡張機能をインストール
+> jupyter labextension install "@jupyter-widgets/jupyterlab-manager"
 
 # JupyterLab 起動
 ## * 実行ポート: 8888

@@ -24,9 +24,12 @@ case "$1" in
 
         # Install PyCall.jl, Conda.jl
         sudo -E -u worker /usr/local/julia/bin/julia -e 'using Pkg; Pkg.add("PyCall"); Pkg.add("Conda")'
-        # Install JupyterLab
-        sudo -E -u worker /usr/local/julia/bin/julia -e 'using Conda; Conda.add("jupyterlab"; channel="conda-forge")'
+        # Install JupyterLab, nodejs, ipywidgets
+        sudo -E -u worker /usr/local/julia/bin/julia -e 'using Conda; Conda.add(["jupyterlab", "nodejs", "ipywidgets"]; channel="conda-forge")'
         sudo -E -u worker /usr/local/julia/bin/julia -e 'using Pkg; Pkg.add("IJulia")'
+
+        # Install JupyterLab ipywidgets extension
+        sudo -E -u worker jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
         # setup .bashrc
         echo 'export PATH="$PATH:/usr/local/julia/bin:$HOME/.julia/conda/3/bin:$HOME/.julia/conda/3/lib"' >> ~worker/.bashrc

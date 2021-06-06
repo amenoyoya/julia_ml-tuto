@@ -29,6 +29,7 @@ $ julia -e 'using Pkg; Pkg.add("Conda")'
 
 # setup PATH to ~/.julia/conda/3/bin
 $ echo 'export PATH="$PATH:$HOME/.julia/conda/3/bin"' >> ~/.bashrc
+$ echo 'export JUPYTER_PATH="$HOME/.julia/conda/3/bin"' >> ~/.bashrc
 $ . ~/.bashrc
 
 # install PyCall.jl package
@@ -39,8 +40,9 @@ $ julia -e 'ENV["PYTHON"] = "~/.julia/conda/3/bin/python"; using Pkg; Pkg.add("P
 # install JupyterLab by Conda.jl
 ## JupyterLab: Jupyter Notebook の後継
 ## * Jupyter Notebook: ノートブック形式でデータを可視化しながらプログラミング言語（主にPython）を実行できるIDE環境
-# $ conda install -y -c conda-forge jupyterlab
-$ julia -e 'using Conda; Conda.add("jupyterlab"; channel="conda-forge")'
+## * 合わせて nodejs と ipywidgets もインストールしておくと Jupyter 上で Rich UI を使えるようになる
+# $ conda install -y -c conda-forge jupyterlab nodejs ipywidgets
+$ julia -e 'using Conda; Conda.add(["jupyterlab", "nodejs", "ipywidgets"]; channel="conda-forge")'
 
 # install IJulia.jl (Jupyter kernel for Julia)
 $ julia -e 'using Pkg; Pkg.add("IJulia")'
@@ -50,6 +52,9 @@ $ jupyter kernelspec list
 Available kernels:
   julia-1.6    ~/.local/share/jupyter/kernels/julia-1.6
   python3      ~/.julia/conda/3/share/jupyter/kernels/python3
+
+# install JupyterLab ipywidgets extension
+$ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 # launch jupyter lab
 ## * 実行ポート: 8888 (optional)
