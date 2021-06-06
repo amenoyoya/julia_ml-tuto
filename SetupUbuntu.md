@@ -34,7 +34,7 @@ $ . ~/.bashrc
 # install PyCall.jl package
 ## PyCall.jl: Julia から Python を使うためのパッケージ
 ## * Conda.jl 環境の Python (~/.julia/conda/2/bin/python) を使うように指定してインストールする
-$ julia -e 'ENV["PYTHON"] = "~/.julia/conda/3/bin/python"; using Pkg; Pkg.add("PyCall")'
+$ julia -e 'ENV["PYTHON"] = "~/.julia/conda/3/bin/python"; using Pkg; Pkg.add("PyCall"); Pkg.build("PyCall")'
 
 # install JupyterLab by Conda.jl
 ## JupyterLab: Jupyter Notebook の後継
