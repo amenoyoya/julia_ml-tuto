@@ -63,7 +63,7 @@ $ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 ## * Project.toml へのパス: ./
 ###  + --project=<Project.tomlへのパス> を指定することで対応する仮想環境で作業できるようになる
 ###  + 指定しない場合、デフォルトのグローバル環境で作業することになるため、環境を汚してしまうデメリットがある
-> jupyter lab --port=8888 --no-browser --ServerApp.token='' --project=@.
+$ jupyter lab --port=8888 --no-browser --ServerApp.token='' --project=@.
 
 # => JupyterLab will be opened in http://localhost:8888/lab
 ```
