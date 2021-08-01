@@ -56,6 +56,14 @@ Available kernels:
 # install JupyterLab ipywidgets extension
 $ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
+# Juliaチュートリアルプロジェクトディレクトリ作成・移動
+$ mkdir ~/julia-tuto
+$ cd ~/julia-tuto/
+
+# Manifest.toml, Project.toml 作成
+$ touch Manifest.toml
+$ echo 'name = "JuliaTutorial"' > Project.toml
+
 # launch jupyter lab
 ## * 実行ポート: 8888 (optional)
 ## * ブラウザの自動起動なし: optional
