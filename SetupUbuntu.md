@@ -32,6 +32,12 @@ $ echo 'export PATH="$PATH:$HOME/.julia/conda/3/bin"' >> ~/.bashrc
 $ echo 'export JUPYTER_PATH="$HOME/.julia/conda/3/bin"' >> ~/.bashrc
 $ . ~/.bashrc
 
+# bash 用に Anaconda 環境を初期化
+$ conda init bash
+$ . ~/.bashrc
+
+# => 以降、ターミナルに現在の Anaconda 環境が表示されるようになる
+
 # install PyCall.jl package
 ## PyCall.jl: Julia から Python を使うためのパッケージ
 ## * Conda.jl 環境の Python (~/.julia/conda/2/bin/python) を使うように指定してインストールする
