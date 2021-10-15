@@ -61,20 +61,18 @@ julia> exit()
 
 # ユーザ環境変数 PATH に Anaconda in Julia の PATH 追加
 > [System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "User") + ";${ENV:USERPROFILE}\.julia\conda\3\Scripts;${ENV:USERPROFILE}\.julia\conda\3\Library\bin", "User")
-> [System.Environment]::SetEnvironmentVariable("JUPYTER_PATH", "${ENV:USERPROFILE}\.julia\conda\3\Scripts;${ENV:USERPROFILE}\.julia\conda\3\Library\bin", "User")
+> [System.Environment]::SetEnvironmentVariable("JUPYTER_PATH", "${ENV:USERPROFILE}\.julia\conda\3\share\jupyter", "User")
 
 # PowerShell起動時に Anaconda をアクティベーションするために
 ## PowerShell script (.ps1) を実行可能できるようにポリシー変更
 > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
-
-# => 環境変数を反映するために一度 PowerShell 再起動
 
 # PowerShell起動時に Anaconda をアクティベーションするプロファイル作成
 > New-Item -ItemType Directory "$env:USERPROFILE\Documents\WindowsPowerShell"
 
 > echo "(& `"$env:USERPROFILE\.julia`\conda\3\Scripts\conda.exe`" `"shell.powershell`" `"hook`") | Out-String | Invoke-Expression" | Out-File -Append -Encoding utf8 -FilePath "$env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1"
 
-# => プロファイル読み込みのため一度 PowerShell 再起動
+# => 環境変数反映・プロファイル読み込みのため一度 PowerShell 再起動
 
 # Jupyter カーネル確認
 > jupyter kernelspec list
