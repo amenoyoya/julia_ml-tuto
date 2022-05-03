@@ -91,6 +91,160 @@ See jupyter notebooks in [01_tutorial](./01_tutorial/).
 
 ***
 
+## パッケージ開発
+
+### 雛形作成
+```bash
+$ julia
+
+julia> using Pkg
+
+# execute `generate` Pkg command
+julia> Pkg.generate("./EventUtils")
+
+## => ./EventUtils/ template package directory will be generated
+```
+
+#### Structure
+```bash
+$PackageName/
+|_ src/
+|  |_ $PackageName.jl
+|
+|_ Project.toml
+```
+
+#### Project.toml
+```javascript Project.toml
+name = "$(PackageName)"
+uuid = "$(using UUIDs; string(uuid1()))"
+authors = ["$(YourName) <$(YourEmail)>"]
+version = "0.1.0"
+```
+
+### パッケージ開発
+パッケージ開発時は、最初に `Revise.jl` を読み込んでおくと良い
+
+- [Revise.jl](https://github.com/timholy/Revise.jl) 
+    - Julia環境を再起動せずにコードの変更を即時反映するパッケージ
+    - `using` で読み込んだ開発中のパッケージに変更を加えたとき、REPL環境を再起動せずにその場で実行確認できる
+
+```bash
+julia> using Pkg
+julia> Pkg.add("Revise")
+
+# Revise.jl を使う
+julia> using Revise
+
+# 開発中のパッケージを読み込む
+## add ではなく develop コマンドを使うと、ローカルパッケージをインストールできる
+julia> Pkg.develop(path="./EventUtils")
+julia> using EventUtils
+
+# => 以降 ./EventUtils/src/*.jl でパッケージ開発を行うと REPL 環境に即座に変更が反映される
+
+# 開発が完了したら free コマンドでローカルパッケージを削除する
+# > Pkg.free("EventUtils")
+## 正式版のパッケージを add コマンドで追加していない場合は free コマンドは失敗するため、通常通り rm コマンドで削除する
+## > Pkg.rm("EventUtils")
+```
+
+#### src/EventUtils.jl
+```julia src/EventUtils.jl
+module EventUtils
+
+#################################
+# module EventUtils.EventEmitter #
+#################################
+export EventEmitter, on!, remove!, emit
+
+"type EventEmitter = Dict(:eventName => [event1(), event2(), ...])"
+const EventEmitter = Dict{Symbol, Vector{Function}}
+
+"""
+    on!(self::EventEmitter, eventName::Symbol, eventFunction::Function)
+
+Append an event function corresponding to the event name.
+"""
+on!(self::EventEmitter, eventName::Symbol, eventFunction::Function) = haskey(self, eventName) ?
+    push!(self[eventName], eventFunction) :
+    self[eventName] = [eventFunction]
+
+"""
+    remove!(self::EventEmitter, eventName::Symbol)
+
+Remove all events corrensponding to the event name.
+"""
+remove!(self::EventEmitter, eventName::Symbol) = haskey(self, eventName) && pop!(self, eventName)
+
+"""
+    emit(self::EventEmitter, arguments...)
+
+Emit events corresponding to the event name.
+"""
+emit(self::EventEmitter, eventName::Symbol, arguments...) = haskey(self, eventName) && map(self[eventName]) do event event(arguments...) end
+
+end # module
+```
+
+### 依存パッケージのインストール
+新規作成したパッケージは独立した環境を持つため、そのパッケージ環境で使える依存パッケージを登録する場合は `Pkg.activate` コマンドを実行した上で依存パッケージを追加する必要がある
+
+```bash
+# 開発中のパッケージ環境に切り替える
+julia> Pkg.activate("EventUtils")
+  Activating project at `/path/to/EventUtils`
+
+# 依存パッケージを追加する
+## 単体テスト用に Test.jl はどのプロジェクトでも入れておいたほうが良い
+julia> Pkg.add("Test")
+
+## => ./EventUtils/Project.toml, ./EventUtils/Manifest.toml に依存パッケージ情報が登録される
+
+# グローバル環境に戻す
+julia> Pkg.activate()
+```
+
+### 単体テストの追加
+単体テストは `$PackageName/test/runtests.jl` に記述する
+
+※ あらかじめ、パッケージ環境内で `Test.jl` は追加しておくこと
+
+#### test/runtests.jl
+```julia test/runtests.jl
+using Test, EventUtils
+
+@testset "EventUtils.EventEmitter" begin
+    event = EventEmitter()
+
+    # register 2 functions to :test event.
+    on!(event, :test, array -> push!(array, 1))
+    on!(event, :test, array -> push!(array, 2))
+
+    @test haskey(event, :test)
+
+    # call :test events.
+    array = Vector{Int}()
+    @test emit(event, :test, array) == [[1, 2], [1, 2]]
+    @test array == [1, 2]
+
+    # remove :test events.
+    remove!(event, :test)
+    @test !haskey(event, :test)
+end
+```
+
+#### テスト実行
+```bash
+julia> Pkg.test("EventUtils")
+
+Test Summary:           | Pass  Total
+EventUtils.EventEmitter |    4      4
+     Testing EventUtils tests passed 
+```
+
+***
+
 ## 機械学習入門
 
 See jupyter notebooks in [02_machine-learning](./02_machine-learning/).
