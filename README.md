@@ -22,16 +22,19 @@
     - [x] Lispに似たマクロや他のメタプログラミング機能
     - [ ] JITコンパイラで事前ビルドされるため、起動が遅い
         - 基本的に研究目的で使われるため、JupyterLab 等で常時起動状態で使われるのが現状の最適解
-    - [ ] 配列の添字が 1 から始まる
-    - [ ] 活発に開発されており、バージョンにより言語仕様が大きく変わることがある
+        - PackageCompiler.jl など、あらかじめコンパイルして高速化するプロジェクトが頑張っている
 
 ***
 
 ## Setup
 
-- Setup for Windows 10: [Julia 1.6.1 on Windows 10](./SetupWindows.md)
-- Setup for Ubuntu 20.04: [Julia 1.6.1 on Ubuntu 20.04](./SetupUbuntu.md)
-- Setup for Docker: [Julia 1.6.1 on Docker](./SetupDocker.md)
+### Julia 1.6.1
+- Setup for Windows 10: [Julia 1.6.1 on Windows 10](./setup/SetupWindows.md)
+- Setup for Ubuntu 20.04: [Julia 1.6.1 on Ubuntu 20.04](./setup/SetupUbuntu.md)
+- Setup for Docker: [Julia 1.6.1 on Docker](./setup/SetupDocker.md)
+
+### Julia 1.7.2 with 機械学習環境
+- [Julia 1.7.2 with 機械学習環境](./setup/SetupDeepLearning.md)
 
 ***
 
