@@ -192,6 +192,15 @@ end
         = Q::Matrix{Number}
 
 Sarsa による行動価値関数 Q の更新を行う関数
+
+- `Q::Matrix{Number}`: 行動価値関数
+- `state::Int`: 現在の状態
+- `action::Int`: 採用する行動
+- `reward::Number`: 報酬
+- `state_next::Int`: 行動後の状態
+- `action_next::Int`: 次に採用する行動
+- `eta::Number`: 学習率
+- `gamma::Number`: 時間割引率
 """
 sarsa!(Q::Matrix, state::Int, action::Int, reward::Number, state_next::Int, action_next::Int, eta::Number, gamma::Number) = begin
     if state_next === 9
