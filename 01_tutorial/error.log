@@ -1,0 +1,8 @@
+┌ Error: 2022-06-18T02:04:47.221: Error:
+│   exception = UndefVarError: printxyz not defined
+Stacktrace:
+ [1] macro expansion
+   @ .\In[7]:4 [inlined]
+ [2] (::var"#1#2")()
+   @ Main .\task.jl:423
+└ @ Main In[7]:8
