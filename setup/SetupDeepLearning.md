@@ -85,6 +85,14 @@ pyenv 2.64.11
 
 # pip パッケージマネージャを更新しておく
 > pip install --user --upgrade pip setuptools
+
+# Windows 10 環境では python (python3) コマンド実行時にストアアプリが開いてしまう
+# => コマンドエイリアスを削除しておく
+> rm ${env:USERPROFILE}\AppData\Local\Microsoft\WindowsApps\python.exe
+> rm ${env:USERPROFILE}\AppData\Local\Microsoft\WindowsApps\python3.exe
+
+# python バージョン確認
+> python -V
 ```
 
 ### Setup on Ubuntu 20.04
