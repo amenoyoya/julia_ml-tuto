@@ -48,15 +48,33 @@ state(::RLEnv) = "state(::RLEnv) -> (state): Get the current state of the enviro
 
 next_action(env::RLEnv, policy::RLPolicy) = policy(action_space(env), state(env))
 
-execute!(env::RLEnv, policy::RLPolicy, recorder::RLRecorder) = begin
+"""
+    execute!(env::RLEnv, policy::RLPolicy, recorder::RLRecorder; max_step::Int = -1) -> n_steps::Int
+
+シナリオ実行
+
+- `env::RLEnv`: 強化学習環境
+- `policy::RLPolicy`: 方策
+- `recorder::RLRecorder`: 状態・行動の記録を行うオブジェクト
+- `max_step::Int`: 最大ステップ数。マイナス値を指定した場合は終了するまで無限ループ
+"""
+execute!(env::RLEnv, policy::RLPolicy, recorder::RLRecorder; max_step::Int = -1) = begin
+    n_steps = 0
     init!(env)
     while !is_terminated(env)
         action = next_action(env, policy)
         recorder(state(env), action) # Record the history.
         env(action) # Transition to the next state.
+
+        n_steps += 1
+        if max_step > 0 && max_step <= n_steps
+            break
+        end
     end
     # Record the final state.
     recorder(state(env), nothing)
+
+    n_steps
 end
 
 #=

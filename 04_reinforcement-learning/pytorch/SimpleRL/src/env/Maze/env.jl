@@ -1,6 +1,8 @@
 using NaNStatistics, Distributions
 
-export MazeAction, MazeState, MazeEnv, action_space, state_space, reward, is_terminated, init!, state, tabler_policy
+export MazeAction, UP, RIGHT, DOWN, LEFT
+export MazeState, S0, S1, S2, S3, S4, S5, S6, S7, S8
+export MazeEnv, action_space, state_space, reward, is_terminated, init!, state, tabler_policy
 
 "エージェントの行動: 上、右、下、左移動"
 @enum MazeAction UP=1 RIGHT DOWN LEFT
