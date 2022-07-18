@@ -5,9 +5,9 @@ export plot, plot!, save_anim
 
 """
     plot(::MazeEnv) =   fig::Figure,
-                    plt::GridPosition,
-                    ax::Axis,
-                    state_positions::Vector{<:Position}
+                        plt::GridPosition,
+                        ax::Axis,
+                        state_positions::Vector{<:Position}
 
 迷路を描画する関数 (500x500 の Figure に以下のようにプロット)
 
@@ -77,24 +77,24 @@ plot!(::MazeEnv, plt::GridPosition, init_pos::Point) = begin
 end
 
 """
-    save_anim(::MazeEnv, recorder::ArrayRecorder, save_filename::String)
+    save_anim(env::MazeEnv, save_filename::String)
 
 迷路内をエージェントがゴールするまで移動させた記録を動画ファイルに保存する関数
 """
-save_anim(env::MazeEnv, recorder::ArrayRecorder, save_filename::String) = begin
+save_anim(env::MazeEnv, save_filename::String) = begin
     # 初期プロット描画
     fig, plt, ax, state_positions = plot(env)
     agent_pos = plot!(env, plt, state_positions[1])
 
     # 動画作成
-    data = records(recorder)
-    n_data = length(data)
-    record(fig, save_filename, 1:n_data;
-        # data を10秒でアニメーションさせるように framerate 設定
-        framerate = ceil(Int, n_data / 10)
+    records = trajectory(env)()
+    n_records = length(records)
+    record(fig, save_filename, 1:n_records;
+        # records を10秒でアニメーションさせるように framerate 設定
+        framerate = ceil(Int, n_records / 10)
     ) do frame
         # エージェント位置更新
-        agent_pos[] = state_positions[data[frame].state]
+        agent_pos[] = state_positions[records[frame].state]
 
         # プロットタイトル更新
         ax.title = "Step: $frame"
