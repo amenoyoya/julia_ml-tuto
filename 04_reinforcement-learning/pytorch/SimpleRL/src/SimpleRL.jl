@@ -72,7 +72,7 @@ execute!(env::RLEnv, policy::RLPolicy, recorder::RLRecorder; max_step::Int = -1)
         end
     end
     # Record the final state.
-    recorder(state(env), nothing)
+    recorder(state(env), NaN)
 
     n_steps
 end
