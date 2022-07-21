@@ -58,10 +58,10 @@ Base.@kwdef mutable struct MazeEnv <: Env
     state_transitions = (-3, +1, +3, -1)
 
     # 行動の重み: 8x4-Matrix
-    theta::Matrix{<:Number} = zeros(8, 4)
+    theta::Matrix{<:Number} = MazeEnvInitialTheta
 end
 
-"行動の重みパラメータ設定: 初期化時に MazeEnvInitialTheta を設定すること"
+"行動の重みパラメータ設定"
 set_theta!(env::MazeEnv, theta::Matrix{<:Number}) = begin
     env.theta = theta
 
@@ -87,7 +87,7 @@ state_space(env::MazeEnv) = env.states
 reward(env::MazeEnv) = is_terminated(env) ? 1.0 : 0.0 # ゴールした時点で初めて報酬発生
 is_terminated(env::MazeEnv) = env.state === Int(S8)
 init!(env::MazeEnv) = begin
-    set_theta!(env, MazeEnvInitialTheta)
+    set_theta!(env, env.theta) # 方策パラメータ => 方策マトリクス 変換
     env.state = Int(S0)
 end
 current_state(env::MazeEnv) = env.state
