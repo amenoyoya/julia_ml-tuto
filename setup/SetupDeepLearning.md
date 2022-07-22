@@ -298,7 +298,7 @@ $ julia
 ## PyCall.jl: Julia から Python を使うためのパッケージ
 ### pyenv でインストールした python 3.8.10 環境と Julia を接続する
 julia> using Pkg
-julia> ENV["PYTHON"] = ENV["HOME"] * "/.anyenv/envs/pyenv/versions/3.8.10/python"
+julia> ENV["PYTHON"] = ENV["HOME"] * "/.anyenv/envs/pyenv/versions/3.8.10/bin/python"
 julia> Pkg.add(PackageSpec(name="PyCall", rev="master"))
 julia> Pkg.build("PyCall")
 
