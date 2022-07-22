@@ -142,16 +142,7 @@ $ pip3 install --upgrade pip setuptools
 
 ### Setup on macOS
 ```bash
-# Homebrew で anyenv 導入
-$ brew install anyenv
-$ anyenv install --init
-
-# anyenv 初期化スクリプトを .zshrc に記述
-$ echo 'eval "$(anyenv init -)"' >> ~/.zshrc
-$ source ~/.zshrc
-
-# anyenv 更新
-$ anyenv update
+# anyenv 導入済みの前提でインストールを進める
 
 # anyenv を使って pyenv 導入
 $ anyenv install pyenv
