@@ -140,6 +140,45 @@ $ pip install --upgrade pip setuptools
 $ pip3 install --upgrade pip setuptools
 ```
 
+### Setup on macOS
+```bash
+# Homebrew で anyenv 導入
+$ brew install anyenv
+$ anyenv install --init
+
+# anyenv 初期化スクリプトを .zshrc に記述
+$ echo 'eval "$(anyenv init -)"' >> ~/.zshrc
+$ source ~/.zshrc
+
+# anyenv 更新
+$ anyenv update
+
+# anyenv を使って pyenv 導入
+$ anyenv install pyenv
+$ exec $SHELL -l
+
+# python ビルドに必要なパッケージをインストール
+$ brew install openssl
+$ xcode-select --install
+
+# pyenv で python 3.8.10 をインストール
+## python3 インストール時: --enable-shared オプションをつけないと PyCall.jl で libpython LoadError 等が発生する
+$ pyenv install 3.8.10
+$ env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install 3.8.10
+
+# python 3.8.10 に切り替え
+$ pyenv global 3.8.10
+$ exec $SHELL -l
+
+# 確認
+$ pyenv versions
+  system
+* 3.8.10 (set by /home/user/.anyenv/envs/pyenv/version)
+
+# pip パッケージマネージャを更新しておく
+$ pip3 install --upgrade pip setuptools
+```
+
 ***
 
 ## 機械学習環境構築
