@@ -150,12 +150,12 @@ $ exec $SHELL -l
 
 # python ビルドに必要なパッケージをインストール
 $ brew install openssl
+$ brew install xz
 $ xcode-select --install
 
 # pyenv で python 3.8.10 をインストール
 ## python3 インストール時: --enable-shared オプションをつけないと PyCall.jl で libpython LoadError 等が発生する
-$ pyenv install 3.8.10
-$ env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install 3.8.10
+$ CONFIGURE_OPTS="--enable-shared" pyenv install 3.8.10
 
 # python 3.8.10 に切り替え
 $ pyenv global 3.8.10
@@ -304,6 +304,41 @@ julia> Pkg.add(PackageSpec(name="IJulia", rev="master"))
 $ jupyter kernelspec list
   julia-1.7    /home/user/.local/share/jupyter/kernels/julia-1.7
   python3      /home/user/.local/share/jupyter/kernels/python3
+```
+
+### Setup on macOS
+- https://julialang.org/downloads/ から macOS 用の dmg ファイルをダウンロード
+- dmg ファイルを解凍 => `/Applications` ディレクトリに `julia-1.7.app` をコピー
+- PATH 追加: `export PATH="$PATH":/Applications/Julia-1.7.app/Contents/Resources/julia/bin`
+
+```bash
+# Julia バージョン確認
+$ julia -v
+julia version 1.7.3
+
+# Julia REPL 起動
+$ julia
+
+# PyCall.jl パッケージインストール
+## PyCall.jl: Julia から Python を使うためのパッケージ
+### pyenv でインストールした python 3.8.10 環境と Julia を接続する
+julia> using Pkg
+julia> ENV["PYTHON"] = ENV["HOME"] * "/.anyenv/envs/pyenv/versions/3.8.10/bin/python"
+julia> Pkg.add(PackageSpec(name="PyCall", rev="master"))
+julia> Pkg.build("PyCall")
+```
+
+- `~/.julia/packages/PyCall/{hash}/deps/deps.jl` を編集
+    - 編集前:
+        - `const PYTHONHOME = "/Users/user/.anyenv/envs/pyenv/versions/3.8.10:/Users/user/.anyenv/envs/pyenv/versions/3.8.10"`
+    - 編集後:
+        - `const PYTHONHOME = ""`
+
+```bash
+# Julia と接続した Python 環境に JupyterLab + Julia Jupyter Kernel インストール
+julia> using Pkg, PyCall
+julia> run(`$(PyCall.python) -m pip install jupyterlab ipywidgets`)
+julia> Pkg.add(PackageSpec(name="IJulia", rev="master"))
 ```
 
 ### Julia よく使うパッケージのインストール
