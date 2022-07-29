@@ -1,0 +1,10 @@
+name = "SimpleRL"
+uuid = "e48870cd-8c4b-4b6a-bc1a-e6d57005f196"
+authors = ["amenoyoya <mtyswe3@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+GLMakie = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
+NaNStatistics = "b946abbf-3ea7-4610-9019-9858bfdeaf2d"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
